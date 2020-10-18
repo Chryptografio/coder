@@ -20,6 +20,9 @@ public class User {
 
 	private String lastName;
 
+	@Column(columnDefinition = "STUDENT")
+	private Role role;
+
 	public Long getId() {
 		return id;
 	}
