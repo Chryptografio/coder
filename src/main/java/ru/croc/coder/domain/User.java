@@ -1,10 +1,7 @@
 package ru.croc.coder.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -21,7 +18,12 @@ public class User {
 	private String lastName;
 
 	@Column(columnDefinition = "STUDENT")
+	@Enumerated(EnumType.STRING)
 	private Role role;
+
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@ManyToMany
+	private Set<Course> courses;
 
 	public Long getId() {
 		return id;

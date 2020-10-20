@@ -5,6 +5,7 @@ import javax.persistence.*;
 /**
  * todo Document type Solution
  */
+@Entity
 public class Solution {
 
     @Id
@@ -14,10 +15,10 @@ public class Solution {
     private String solution;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @Column(name = "author_id", nullable = false)
     private User author;
 
-    @ManyToOne
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "problem_id", nullable = false)
     private Problem problem;
 }

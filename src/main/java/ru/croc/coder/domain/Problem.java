@@ -1,10 +1,8 @@
 package ru.croc.coder.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * todo Document type Problem
@@ -17,6 +15,7 @@ public class Problem {
 
     private String descriotion;
 
+    @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
     private List<String> input; // TODO
@@ -25,5 +24,8 @@ public class Problem {
 
     private String template;
 
-    private String solution;
+    private String referenceSolution;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<String> solutions;
 }
