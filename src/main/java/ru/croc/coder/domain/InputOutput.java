@@ -3,21 +3,18 @@ package ru.croc.coder.domain;
 import javax.persistence.*;
 
 /**
- * todo Document type Solution
+ * todo Document type InputOutput
  */
-@Entity
-public class Solution {
 
+@Entity
+public class InputOutput {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
-    private String solution;
+    private String input;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
+    private String output;
 
     @ManyToOne
     @JoinColumn(name = "problem_id")

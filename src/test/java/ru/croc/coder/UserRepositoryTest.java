@@ -14,12 +14,5 @@ import ru.croc.coder.repository.UserRepository;
 @SpringBootTest
 public class UserRepositoryTest {
 
-	@Autowired
-	private UserRepository userRepository;
 
-	@Test
-	public void testFindByEmail() {
-		Optional<User> user = userRepository.findПожалуйстаByEmailIgnoreCase("episarenko@croc.ru");
-		assertThat(user).isNotEmpty();
-	}
 }

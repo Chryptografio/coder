@@ -3,27 +3,46 @@ package ru.croc.coder.domain;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
+@Entity(name = "user")
+@Table(name = "users")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Column(nullable = false)
+	private String password;
+
 	@Column(unique = true, nullable = false)
 	private String email;
 
+	@Column(nullable = false)
 	private String firstName;
 
+	@Column(nullable = false)
 	private String lastName;
 
-	@Column(columnDefinition = "STUDENT")
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Role role;
+	private Role role = Role.STUDENT;
 
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	@ManyToMany
-	private Set<Course> courses;
+	@ManyToMany(cascade = {
+		CascadeType.PERSIST,
+		CascadeType.MERGE
+	})
+	@JoinTable(
+		name = "user_course",
+		joinColumns = {@JoinColumn(name = "user_id")},
+		inverseJoinColumns = {@JoinColumn(name = "course_id")}
+	)
+	private Set<Course> attendedCourses;
+
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Course> createdCourses;
+
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Solution> solutions;
 
 	public Long getId() {
 		return id;
@@ -31,6 +50,15 @@ public class User {
 
 	public User setId(Long id) {
 		this.id = id;
+		return this;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public User setPassword(String password) {
+		this.password = password;
 		return this;
 	}
 
@@ -59,5 +87,24 @@ public class User {
 	public User setLastName(String lastName) {
 		this.lastName = lastName;
 		return this;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public User setRole(Role role) {
+		this.role = role;
+		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+			"email='" + email + '\'' +
+			", firstName='" + firstName + '\'' +
+			", lastName='" + lastName + '\'' +
+			", role=" + role +
+			'}';
 	}
 }
