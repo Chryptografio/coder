@@ -85,7 +85,9 @@ public class Init implements CommandLineRunner {
 			.setDescription("Problem 1")
 			.setDifficulty(Difficulty.EASY)
 			.setReferenceSolution("Reference solution")
-			.setTemplate("Basic Template");
+			.setTemplate("Basic Template")
+			.setTestClass("Some test class")
+			.setProblemConstraint(new ProblemConstraint().setMaxSize(25L));
 
 		Long problemId1 = problemRepository.save(problem1).getId();
 		log.info(createdProblemMessage, problemId1);

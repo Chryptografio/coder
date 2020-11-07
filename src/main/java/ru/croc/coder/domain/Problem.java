@@ -24,11 +24,25 @@ public class Problem {
     @Lob
     private String template;
 
+    @Column(name = "reference_solution")
     @Lob
     private String referenceSolution;
 
-    @OneToOne(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.LAZY)
+    //@OneToOne(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.LAZY)
+    @Embedded
     private ProblemConstraint problemConstraint;
+
+    @Column(nullable = false)
+    private String testClass;
+
+    public String getTestClass() {
+        return testClass;
+    }
+
+    public Problem setTestClass(String testClass) {
+        this.testClass = testClass;
+        return this;
+    }
 
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Solution> solutions;
@@ -91,6 +105,33 @@ public class Problem {
 
     public Problem setCourse(Course course) {
         this.course = course;
+        return this;
+    }
+
+    public ProblemConstraint getProblemConstraint() {
+        return problemConstraint;
+    }
+
+    public Problem setProblemConstraint(ProblemConstraint problemConstraint) {
+        this.problemConstraint = problemConstraint;
+        return this;
+    }
+
+    public Set<Solution> getSolutions() {
+        return solutions;
+    }
+
+    public Problem setSolutions(Set<Solution> solutions) {
+        this.solutions = solutions;
+        return this;
+    }
+
+    public Set<InputOutput> getData() {
+        return data;
+    }
+
+    public Problem setData(Set<InputOutput> data) {
+        this.data = data;
         return this;
     }
 }

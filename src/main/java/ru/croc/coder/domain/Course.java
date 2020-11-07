@@ -52,4 +52,13 @@ public class Course {
     public Set<User> getAttendees() {
         return attendees;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Course setDescription(String description) {
+        this.description = description;
+        return this;
+    }
 }

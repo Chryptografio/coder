@@ -13,6 +13,7 @@ values (8, 'Java Course', 6);
 insert into courses (id, description, author_id)
 values (9, 'SQL Course', 6);
 
+/*
 insert into problems (ID, DESCRIPTION, DIFFICULTY, REFERENCE_SOLUTION, TEMPLATE, COURSE_ID)
 values (10, 'First problem', 'EASY', 'Reference solution', 'Basic Template', 8);
 
@@ -26,4 +27,4 @@ insert into problem_constraints (ID, MAXRAM, MAX_SIZE, MAX_TIME, TEST_CLASS, PRO
 values (13, 256, 16, 5000, 'Test class', 10);
 
 insert into problem_constraints (ID, TEST_CLASS, PROBLEM_ID)
-values (14, 'Test class', 10);
+values (14, 'Test class', 10);*/
