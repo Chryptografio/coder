@@ -1,15 +1,11 @@
 package ru.croc.coder.dto;
 
-import ru.croc.coder.annotation.PasswordMatches;
-import ru.croc.coder.annotation.ValidEmail;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
  * todo Document type RegisteringUser
  */
-@PasswordMatches
 public class RegisteringUserDto {
     @NotNull
     @NotEmpty
@@ -26,7 +22,6 @@ public class RegisteringUserDto {
 
     @NotNull
     @NotEmpty
-    @ValidEmail
     private String email;
 
     public String getFirstName() {
