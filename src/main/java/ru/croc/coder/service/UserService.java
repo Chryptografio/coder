@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.croc.coder.domain.Role;
 import ru.croc.coder.domain.User;
+import ru.croc.coder.dto.LoginUserDto;
 import ru.croc.coder.dto.RegisteringUserDto;
 import ru.croc.coder.repository.UserRepository;
+import ru.croc.coder.service.exceptions.NotFoundException;
+import ru.croc.coder.service.exceptions.UserAlreadyExistException;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 /**
  * todo Document type UserService
@@ -40,5 +42,11 @@ public class UserService {
 
     private boolean emailExist(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    public User loginUser(LoginUserDto loginUserDto) {
+        // TODO some logic here
+        // Thing about encoding some passwords...
+        return userRepository.findByEmail(loginUserDto.getEmail()).orElseThrow(NotFoundException::new);
     }
 }

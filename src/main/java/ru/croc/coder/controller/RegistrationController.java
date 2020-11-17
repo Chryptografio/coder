@@ -14,7 +14,7 @@ import javax.validation.Valid;
  * todo Document type RegistrationController
  */
 @RestController
-@RequestMapping("user/registration")
+@RequestMapping("/signup")
 public class RegistrationController {
     UserService userService;
     ModelMapper modelMapper;
@@ -33,6 +33,7 @@ public class RegistrationController {
     @PostMapping
     public UserDto registerNewUser(@RequestBody @Valid RegisteringUserDto newUser) {
         User user = userService.registerNewUser(newUser);
+        System.out.println(user.getPassword());
         return convertToDto(user);
     }
 

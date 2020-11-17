@@ -5,6 +5,7 @@ import ru.croc.coder.domain.Course;
 import ru.croc.coder.domain.User;
 import ru.croc.coder.repository.CourseRepository;
 import ru.croc.coder.repository.UserRepository;
+import ru.croc.coder.service.exceptions.NotFoundException;
 
 /**
  * todo Document type CourseService

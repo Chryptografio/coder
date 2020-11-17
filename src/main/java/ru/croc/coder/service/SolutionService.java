@@ -1,6 +1,5 @@
 package ru.croc.coder.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.croc.coder.domain.Problem;
 import ru.croc.coder.domain.Solution;
@@ -8,6 +7,8 @@ import ru.croc.coder.domain.User;
 import ru.croc.coder.repository.ProblemRepository;
 import ru.croc.coder.repository.SolutionRepository;
 import ru.croc.coder.repository.UserRepository;
+import ru.croc.coder.service.exceptions.NotFoundException;
+import ru.croc.coder.service.exceptions.ProblemConstraintException;
 
 /**
  * todo Document type ProblemService
