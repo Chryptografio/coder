@@ -18,6 +18,12 @@ public class Course {
     @JoinColumn(name="author_id")
     private User author;
 
+    @Column(nullable = false)
+    private String name;
+
+//    @Column(nullable = false, columnDefinition = "default true")
+//    private Boolean opened;
+
     @Lob
     private String description;
 
@@ -51,5 +57,32 @@ public class Course {
 
     public Set<User> getAttendees() {
         return attendees;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Course setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+//    public Boolean isOpened() {
+//        return opened;
+//    }
+//
+//    public Course setOpened(Boolean opened) {
+//        this.opened = opened;
+//        return this;
+//    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Course setDescription(String description) {
+        this.description = description;
+        return this;
     }
 }

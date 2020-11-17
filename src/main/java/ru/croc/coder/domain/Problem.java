@@ -93,4 +93,13 @@ public class Problem {
         this.course = course;
         return this;
     }
+
+    public ProblemConstraint getProblemConstraint() {
+        return problemConstraint;
+    }
+
+    public Problem setProblemConstraint(ProblemConstraint problemConstraint) {
+        this.problemConstraint = problemConstraint;
+        return this;
+    }
 }

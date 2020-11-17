@@ -7,9 +7,7 @@ import ru.croc.coder.repository.UserRepository;
 
 import java.util.List;
 
-/**
- * todo Document type UserService
- */
+// TODO add registering and authentication
 @Service
 public class UserService {
 

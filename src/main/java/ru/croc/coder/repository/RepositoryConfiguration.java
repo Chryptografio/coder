@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * todo Document type RepositoryConfiguration
+ * todo think about moving this to configuration repository
  */
 @Configuration
 public class RepositoryConfiguration {

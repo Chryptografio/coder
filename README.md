@@ -44,3 +44,39 @@
 Возможность оставлять комментарии к решению (вопросы от учеников и код-ревью со стороны преподавателей).
 
 Режим отладки: проверка решения на тестовых данных ученика.
+
+
+#### Checkpoints
+- [ ] Аутентификация
+- [ ] Регистрация пользователя
+- [ ] (*) Импорт задач из файла (csv, json, xml)
+- [ ] Создание курса (доступно только для учителя)
+- [ ] Создание задачи (доступно только для учителя)
+- [ ] Получение списка задач курса
+- [ ] Добавление участника на курс (enroll)
+- [ ] Сабмит задачи
+- [ ] Получение статистики по решениям для ученика
+- [ ] Получение сводной статистики по курсу (доступно учителю)
+
+#### Other things
+- [ ] For finished tasks
+- [ ] Transfer working with dto to controller layer
+
+## Understanding API
+2 Roles: 
+- AUTHOR
+- STUDENT
+### AUTHOR
+- create course
+- create problem
+- authentication
+- make other students authors
+- see summarizing statistics for the courses
+
+### STUDENT
+- see open courses
+- apply to a course (via invitation or freely to the open course) enroll
+- see a course and problems to the applied courses
+- submit solution to the problem (check constraints)
+- see some statistics
+- registering

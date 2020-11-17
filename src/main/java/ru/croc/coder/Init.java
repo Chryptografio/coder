@@ -72,11 +72,11 @@ public class Init implements CommandLineRunner {
 		Long userId4 = userRepository.save(user4).getId();
 		log.info(createdUserMessage, userId4);
 
-		Course course1 = new Course().setAuthor(user1);
+		Course course1 = new Course().setAuthor(user1).setName("First course");
 		Long courseId1 = courseRepository.save(course1).getId();
 		log.info(createdCourseMessage, courseId1);
 
-		Course course2 = new Course().setAuthor(user1);
+		Course course2 = new Course().setAuthor(user1).setName("Second course");
 		Long courseId2 = courseRepository.save(course2).getId();
 		log.info(createdCourseMessage, courseId2);
 

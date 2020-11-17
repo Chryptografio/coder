@@ -7,11 +7,11 @@ values (6, 'Jonathan', 'Henry', 'JonathanHenry@example.com', 'otherPassword', 'A
 insert into users (id, first_name, last_name, email, password, role)
 values (7, 'Kathy', 'Perry', 'KathyPerry@example.com', 'kathyHello', 'STUDENT');
 
-insert into courses (id, description, author_id)
-values (8, 'Java Course', 6);
+insert into courses (id, name, description, author_id)
+values (8, 'Java', 'Java Course', 6);
 
-insert into courses (id, description, author_id)
-values (9, 'SQL Course', 6);
+insert into courses (id, name, description, author_id)
+values (9, 'SQL', 'SQL Course', 6);
 
 insert into problems (ID, DESCRIPTION, DIFFICULTY, REFERENCE_SOLUTION, TEMPLATE, COURSE_ID)
 values (10, 'First problem', 'EASY', 'Reference solution', 'Basic Template', 8);
