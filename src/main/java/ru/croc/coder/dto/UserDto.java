@@ -7,6 +7,9 @@ public class UserDto {
 
     private String lastName;
 
+    // TODO remove later this field
+    private String password;
+
     public Long getId() {
         return id;
     }
@@ -29,5 +32,13 @@ public class UserDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
