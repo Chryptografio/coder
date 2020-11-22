@@ -24,6 +24,13 @@ public class Solution {
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
+    @Enumerated(EnumType.STRING)
+    @Column
+    private ProcessStatus processStatus;
+
+    @Column(name = "passed")
+    private Boolean passed;
+
     public Long getId() {
         return id;
     }
@@ -57,6 +64,24 @@ public class Solution {
 
     public Solution setProblem(Problem problem) {
         this.problem = problem;
+        return this;
+    }
+
+    public ProcessStatus getProcessStatus() {
+        return processStatus;
+    }
+
+    public Solution setProcessStatus(ProcessStatus processStatus) {
+        this.processStatus = processStatus;
+        return this;
+    }
+
+    public Boolean getPassed() {
+        return passed;
+    }
+
+    public Solution setPassed(Boolean passed) {
+        this.passed = passed;
         return this;
     }
 
