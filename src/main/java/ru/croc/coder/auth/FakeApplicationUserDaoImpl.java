@@ -11,7 +11,7 @@ import java.util.Optional;
 import static ru.croc.coder.security.ApplicationUserRole.AUTHOR;
 import static ru.croc.coder.security.ApplicationUserRole.STUDENT;
 
-@Repository
+@Repository("fake")
 @AllArgsConstructor
 public class FakeApplicationUserDaoImpl implements ApplicationUserDao {
 
