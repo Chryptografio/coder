@@ -1,6 +1,5 @@
 package ru.croc.coder.annotation;
 
-
 import ru.croc.coder.validation.EmailValidator;
 
 import javax.validation.Constraint;
@@ -21,6 +20,8 @@ import static java.lang.annotation.ElementType.*;
 @Documented
 public @interface ValidEmail {
     String message() default "Invalid email";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

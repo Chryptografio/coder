@@ -1,0 +1,18 @@
+{
+  "problems": [
+    {
+      "description": "basic description15",
+      "difficulty": "HARD",
+      "template": "basic template",
+      "referenceSolution": "basic reference solution",
+      "testClass": "basic test class"
+    },
+    {
+      "description": "basic description16",
+      "difficulty": "EASY",
+      "template": "basic template",
+      "referenceSolution": "basic reference solution",
+      "testClass": "basic test class"
+    }
+  ]
+}

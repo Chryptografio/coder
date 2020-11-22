@@ -5,7 +5,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.croc.coder.dto.SolutionDto;
-import ru.croc.coder.service.CourseService;
 import ru.croc.coder.service.SolutionService;
 
 @RestController

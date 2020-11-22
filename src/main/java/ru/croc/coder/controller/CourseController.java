@@ -7,22 +7,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.croc.coder.domain.Course;
 import ru.croc.coder.dto.CourseDto;
+import ru.croc.coder.dto.CourseStatisticsDto;
 import ru.croc.coder.service.CourseService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * todo Document type CourseController
- */
 @RestController
 @RequestMapping("/courses")
 @AllArgsConstructor
 public class CourseController {
 
-    private CourseService courseService;
-
-    private ModelMapper modelMapper;
+    private final CourseService courseService;
+    private final ModelMapper modelMapper;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_AUTHOR')")
@@ -61,6 +58,13 @@ public class CourseController {
         return courseService.addStudentToCourse(username, courseId, studentId);
     }
 
+    @GetMapping("/{courseId}/statistics")
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR')")
+    public CourseStatisticsDto getCourseStatistics(Authentication authentication, @PathVariable Long courseId) {
+        String username = authentication.getName();
+
+        return courseService.getCourseStatistics(username, courseId);
+    }
 
     private CourseDto convertToDto(Course course) {
         return modelMapper.map(course, CourseDto.class);

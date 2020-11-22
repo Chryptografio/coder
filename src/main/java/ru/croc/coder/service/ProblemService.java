@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.croc.coder.domain.*;
 import ru.croc.coder.dto.ProblemDto;
+import ru.croc.coder.dto.ProblemsFileDto;
 import ru.croc.coder.repository.CourseRepository;
 import ru.croc.coder.repository.ProblemRepository;
 import ru.croc.coder.repository.UserRepository;
@@ -50,5 +51,10 @@ public class ProblemService {
         return problemRepository.findAllByCourseId(courseId).stream()
             .map(problem -> modelMapper.map(problem, ProblemDto.class))
             .collect(Collectors.toList());
+    }
+
+    public ProblemsFileDto publishProblems(String username, Long courseId, ProblemsFileDto problemsFileDto) {
+        problemsFileDto.getProblems().forEach(problemDto -> publishProblem(username, courseId, problemDto));
+        return problemsFileDto;
     }
 }

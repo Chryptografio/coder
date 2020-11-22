@@ -15,7 +15,7 @@ public class SolutionDto {
     @JsonProperty("submitTime")
     private LocalDateTime time;
 
-    private Boolean passed;
+    private Boolean passed = false;
 
     private ProcessStatus processStatus;
 

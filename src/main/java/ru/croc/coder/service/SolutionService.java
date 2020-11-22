@@ -1,7 +1,6 @@
 package ru.croc.coder.service;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -59,8 +58,9 @@ public class SolutionService {
         Solution solution = null;
         try {
             Optional<Solution> result = peekNextSolution();
-            if (result.isEmpty())
+            if (result.isEmpty()) {
                 return;
+            }
 
             solution = result.get();
             boolean passed = runTests(solution);
@@ -73,7 +73,7 @@ public class SolutionService {
         }
     }
 
-//    @Transactional(isolation = Isolation.SERIALIZABLE) Sonarlint gets angry
+    //    @Transactional(isolation = Isolation.SERIALIZABLE) Sonarlint gets angry
     public Optional<Solution> peekNextSolution() {
         Optional<Solution> result = solutionRepository.findAnyQueued();
 

@@ -8,7 +8,9 @@ import ru.croc.coder.domain.Course;
 import ru.croc.coder.domain.Role;
 import ru.croc.coder.domain.User;
 import ru.croc.coder.dto.CourseDto;
+import ru.croc.coder.dto.CourseStatisticsDto;
 import ru.croc.coder.repository.CourseRepository;
+import ru.croc.coder.repository.SolutionRepository;
 import ru.croc.coder.repository.UserRepository;
 import ru.croc.coder.service.exception.NotAllowedOperationException;
 import ru.croc.coder.service.exception.NotFoundException;
@@ -35,7 +37,7 @@ public class CourseService {
     public List<Course> getAvailableCourses() {
 
         return ((ArrayList<Course>) courseRepository.findAll()).stream()
-            .filter(course -> true) // TODO change
+            .filter(course -> course.getAvailability().equals(Availability.OPEN))
             .collect(Collectors.toList());
     }
 
@@ -83,5 +85,20 @@ public class CourseService {
         userRepository.save(student);
 
         return modelMapper.map(course, CourseDto.class);
+    }
+
+    public CourseStatisticsDto getCourseStatistics(String username, Long courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(NotFoundException::new);
+        User user = userRepository.findByEmail(username).orElseThrow(NotFoundException::new);
+
+        if (!course.getAuthor().equals(user)) {
+            throw new NotAllowedOperationException();
+        }
+
+        CourseStatisticsDto statistics = new CourseStatisticsDto();
+        statistics.setNumberOfProblems((long) course.getProblems().size());
+        statistics.setNumberOfAttendees((long) course.getAttendees().size());
+
+        return statistics;
     }
 }

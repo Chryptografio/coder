@@ -16,6 +16,7 @@ import ru.croc.coder.service.exception.UserAlreadyExistException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,9 +40,9 @@ public class UserService {
     public UserDto getUser(String username) {
         log.info("Provided username: {}", username);
 
-        Optional<User> foundUser = userRepository.findByEmail(username);
-        log.info("Found user email: {}", foundUser.get().getEmail());
-        return modelMapper.map(foundUser.get(), UserDto.class);
+        User foundUser = userRepository.findByEmail(username).orElseThrow(NotFoundException::new);
+        log.info("Found user email: {}", foundUser.getEmail());
+        return modelMapper.map(foundUser, UserDto.class);
     }
 
     @Transactional
@@ -75,5 +76,19 @@ public class UserService {
         return user.getAttendedCourses().stream()
             .map(course -> modelMapper.map(course, CourseDto.class))
             .collect(Collectors.toList());
+    }
+
+    public Map<String, Map<String, Long>> getStatisticsForStudent(String username) {
+        User user = userRepository.findByEmail(username).orElseThrow(NotFoundException::new);
+
+        return user.getAttendedCourses().stream()
+            .map(course -> {
+                int totalProblems = course.getProblems().size();
+                long solvedProblems = user.getSolutions().stream()
+                    .filter(solution -> solution.getProblem().getCourse().equals(course)) //solution.getPassed doesn't work
+                    .count();
+                return Map.of(course.getName(), Map.of("Total problems", (long) totalProblems, "Solved problems", solvedProblems));
+            }).flatMap(stringMapMap -> stringMapMap.entrySet().stream())
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }

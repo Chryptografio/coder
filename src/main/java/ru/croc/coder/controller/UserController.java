@@ -12,6 +12,7 @@ import ru.croc.coder.dto.UserDto;
 import ru.croc.coder.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -45,5 +46,13 @@ public class UserController {
         String username = authentication.getName();
 
         return userService.getAttendedCourses(username);
+    }
+
+    @GetMapping("/me/statistics")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT')")
+    public Map<String, Map<String, Long>> getStatisticsForStudent(Authentication authentication) {
+        String username = authentication.getName();
+
+        return userService.getStatisticsForStudent(username);
     }
 }

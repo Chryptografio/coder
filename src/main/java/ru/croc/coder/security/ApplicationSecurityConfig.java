@@ -13,13 +13,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.croc.coder.auth.ApplicationUserService;
 import ru.croc.coder.jwt.JwtConfig;
-import ru.croc.coder.jwt.JwtSecretKey;
 import ru.croc.coder.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import ru.croc.coder.jwt.JwtVerifier;
 
 import javax.crypto.SecretKey;
-
-import static ru.croc.coder.security.ApplicationUserRole.STUDENT;
 
 /**
  * todo Document type ApplicationSecurityConfig
@@ -45,16 +42,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
             .addFilterAfter(new JwtVerifier(jwtConfig, secretKey), JwtUsernameAndPasswordAuthenticationFilter.class)
             .authorizeRequests()
-            .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
             .antMatchers("/register/**").permitAll()
-            .antMatchers("/api/**").hasRole(STUDENT.name())
-            .antMatchers("/users").permitAll()
             .anyRequest()
             .authenticated();
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 

@@ -2,8 +2,6 @@ package ru.croc.coder.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -28,7 +26,7 @@ public class Problem {
     @Lob
     private String referenceSolution;
 
-    @OneToOne(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.LAZY)
+    @OneToOne(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private ProblemConstraint problemConstraint;
 
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
