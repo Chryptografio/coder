@@ -29,9 +29,9 @@ public class UserController {
 
     @GetMapping("/me")
     public UserDto getUserInformation(Authentication authentication) {
-        String authenticationDetails = authentication.getName();
-        log.info("authDetails: {}", authenticationDetails);
-        UserDto userDto = userService.getUser(authenticationDetails);
+        String username = authentication.getName();
+        log.info("authDetails: {}", username);
+        UserDto userDto = userService.getUser(username);
         log.info("UserDto: {}", userDto.getFirstName());
         return userDto;
     }

@@ -9,6 +9,7 @@ import ru.croc.coder.domain.User;
 import ru.croc.coder.dto.RegisterUserDto;
 import ru.croc.coder.dto.UserDto;
 import ru.croc.coder.repository.UserRepository;
+import ru.croc.coder.service.exception.UserAlreadyExistException;
 
 import javax.transaction.Transactional;
 import java.util.Optional;

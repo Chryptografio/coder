@@ -3,6 +3,7 @@ package ru.croc.coder.domain;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -30,7 +31,7 @@ public class Problem {
     @OneToOne(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.LAZY)
     private ProblemConstraint problemConstraint;
 
-    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
     private Set<Solution> solutions;
 
     @ManyToOne
@@ -100,6 +101,27 @@ public class Problem {
 
     public Problem setProblemConstraint(ProblemConstraint problemConstraint) {
         this.problemConstraint = problemConstraint;
+        return this;
+    }
+
+    public Set<Solution> getSolutions() {
+        return solutions;
+    }
+
+    public Problem setSolutions(Set<Solution> solutions) {
+        //clear existing children list so that they are removed from database
+        this.solutions.clear();
+        //add the new children list created above to the existing list
+        this.solutions.addAll(solutions);
+        return this;
+    }
+
+    public Set<InputOutput> getData() {
+        return data;
+    }
+
+    public Problem setData(Set<InputOutput> data) {
+        this.data = data;
         return this;
     }
 }

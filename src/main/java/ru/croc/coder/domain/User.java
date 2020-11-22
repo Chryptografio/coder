@@ -98,6 +98,16 @@ public class User {
 		return this;
 	}
 
+	public Set<Solution> getSolutions() {
+		return solutions;
+	}
+
+	public User setSolutions(Set<Solution> solutions) {
+		this.solutions.clear();
+		this.solutions.addAll(solutions);
+		return this;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +

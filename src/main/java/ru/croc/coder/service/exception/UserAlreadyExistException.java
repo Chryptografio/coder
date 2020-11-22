@@ -1,4 +1,4 @@
-package ru.croc.coder.service;
+package ru.croc.coder.service.exception;
 
 public class UserAlreadyExistException extends RuntimeException {
 

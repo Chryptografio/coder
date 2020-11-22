@@ -1,6 +1,7 @@
 package ru.croc.coder.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * todo Document type Solution
@@ -57,5 +58,25 @@ public class Solution {
     public Solution setProblem(Problem problem) {
         this.problem = problem;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Solution)) {
+            return false;
+        }
+        Solution solution1 = (Solution) o;
+        return getId().equals(solution1.getId()) &&
+            getSolution().equals(solution1.getSolution()) &&
+            getAuthor().equals(solution1.getAuthor()) &&
+            getProblem().equals(solution1.getProblem());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getSolution(), getAuthor(), getProblem());
     }
 }

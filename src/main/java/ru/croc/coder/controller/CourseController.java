@@ -3,9 +3,8 @@ package ru.croc.coder.controller;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 import ru.croc.coder.domain.Course;
 import ru.croc.coder.dto.CourseDto;
 import ru.croc.coder.service.CourseService;
@@ -40,6 +39,14 @@ public class CourseController {
             .map(this::convertToDto)
             .collect(Collectors.toList());
     }
+
+    @PostMapping
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR')")
+    public CourseDto createCourse(Authentication authentication, @RequestBody CourseDto courseDto) {
+        String username = authentication.getName();
+        return courseService.addCourse(username, courseDto);
+    }
+
 
     private CourseDto convertToDto(Course course) {
         return modelMapper.map(course, CourseDto.class);

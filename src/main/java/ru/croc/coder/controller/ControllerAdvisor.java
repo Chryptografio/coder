@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.croc.coder.dto.ExceptionDto;
-import ru.croc.coder.service.exception.UserAlreadyExistsException;
+import ru.croc.coder.service.exception.UserAlreadyExistException;
 
 import java.util.Collections;
 
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<Object> handleUserAlreadyExistsException(UserAlreadyExistsException e, WebRequest webRequest) {
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ResponseEntity<Object> handleUserAlreadyExistsException(UserAlreadyExistException e, WebRequest webRequest) {
         return handleExceptionInternal(
             e,
             new ExceptionDto(
