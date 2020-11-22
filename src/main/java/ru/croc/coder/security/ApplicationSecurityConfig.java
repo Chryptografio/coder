@@ -35,8 +35,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtConfig jwtConfig;
     private final SecretKey secretKey;
 
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -48,7 +46,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
             .addFilterAfter(new JwtVerifier(jwtConfig, secretKey), JwtUsernameAndPasswordAuthenticationFilter.class)
             .authorizeRequests()
             .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
+            .antMatchers("/register/**").permitAll()
             .antMatchers("/api/**").hasRole(STUDENT.name())
+            .antMatchers("/users").permitAll()
             .anyRequest()
             .authenticated();
     }
