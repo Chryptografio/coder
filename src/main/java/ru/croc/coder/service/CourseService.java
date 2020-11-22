@@ -3,12 +3,14 @@ package ru.croc.coder.service;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import ru.croc.coder.domain.Availability;
 import ru.croc.coder.domain.Course;
 import ru.croc.coder.domain.Role;
 import ru.croc.coder.domain.User;
 import ru.croc.coder.dto.CourseDto;
 import ru.croc.coder.repository.CourseRepository;
 import ru.croc.coder.repository.UserRepository;
+import ru.croc.coder.service.exception.NotAllowedOperationException;
 import ru.croc.coder.service.exception.NotFoundException;
 
 import java.util.ArrayList;
@@ -47,8 +49,39 @@ public class CourseService {
         Course course = new Course()
             .setAuthor(user)
             .setName(courseDto.getName())
-            .setDescription(courseDto.getDescription());
+            .setDescription(courseDto.getDescription())
+            .setAvailability(courseDto.getAvailability());
 
         return modelMapper.map(courseRepository.save(course), CourseDto.class);
+    }
+
+    public CourseDto enrollStudentToCourse(String username, Long courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(NotFoundException::new);
+        User user = userRepository.findByEmail(username).orElseThrow(NotFoundException::new);
+
+        if (course.getAvailability().equals(Availability.CLOSED)) {
+            throw new NotAllowedOperationException();
+        }
+
+        // TODO add endpoint attended courses
+        user.getAttendedCourses().add(course);
+        userRepository.save(user);
+
+        return modelMapper.map(course, CourseDto.class);
+    }
+
+    public CourseDto addStudentToCourse(String username, Long courseId, Long studentId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(NotFoundException::new);
+        User user = userRepository.findByEmail(username).orElseThrow(NotFoundException::new);
+        User student = userRepository.findById(studentId).orElseThrow(NotFoundException::new);
+
+        if (!course.getAuthor().equals(user) || student.getRole().equals(Role.AUTHOR) || student.getAttendedCourses().contains(course)) {
+            throw new NotAllowedOperationException();
+        }
+
+        student.getAttendedCourses().add(course);
+        userRepository.save(student);
+
+        return modelMapper.map(course, CourseDto.class);
     }
 }

@@ -1,5 +1,7 @@
 package ru.croc.coder.dto;
 
+import ru.croc.coder.domain.Availability;
+
 /**
  * todo Document type CourseDto
  */
@@ -9,6 +11,8 @@ public class CourseDto {
     private String name;
 
     private String description;
+
+    private Availability availability = Availability.CLOSED;
 
     public Long getId() {
         return id;
@@ -32,5 +36,13 @@ public class CourseDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Availability getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Availability availability) {
+        this.availability = availability;
     }
 }

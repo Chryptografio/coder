@@ -47,6 +47,20 @@ public class CourseController {
         return courseService.addCourse(username, courseDto);
     }
 
+    @PostMapping("/{courseId}/enrollment")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT')")
+    public CourseDto enrollToCourse(Authentication authentication, @PathVariable Long courseId) {
+        String username = authentication.getName();
+        return courseService.enrollStudentToCourse(username, courseId);
+    }
+
+    @PostMapping("/{courseId}/student/{studentId}")
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR')")
+    public CourseDto addStudentToCourse(Authentication authentication, @PathVariable Long courseId, @PathVariable Long studentId) {
+        String username = authentication.getName();
+        return courseService.addStudentToCourse(username, courseId, studentId);
+    }
+
 
     private CourseDto convertToDto(Course course) {
         return modelMapper.map(course, CourseDto.class);

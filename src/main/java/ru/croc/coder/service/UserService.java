@@ -6,12 +6,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.croc.coder.domain.Role;
 import ru.croc.coder.domain.User;
+import ru.croc.coder.dto.CourseDto;
 import ru.croc.coder.dto.RegisterUserDto;
 import ru.croc.coder.dto.UserDto;
 import ru.croc.coder.repository.UserRepository;
+import ru.croc.coder.service.exception.NotAllowedOperationException;
+import ru.croc.coder.service.exception.NotFoundException;
 import ru.croc.coder.service.exception.UserAlreadyExistException;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,7 +45,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto register(RegisterUserDto newUser) throws UserAlreadyExistException {
+    public UserDto register(RegisterUserDto newUser) {
         if (emailExist(newUser.getEmail())) {
             throw new UserAlreadyExistException("User with such email already exists");
         }
@@ -59,5 +63,17 @@ public class UserService {
 
     private boolean emailExist(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    public List<CourseDto> getAttendedCourses(String username) {
+        User user = userRepository.findByEmail(username).orElseThrow(NotFoundException::new);
+
+        if (user.getRole().equals(Role.AUTHOR)) {
+            throw new NotAllowedOperationException();
+        }
+
+        return user.getAttendedCourses().stream()
+            .map(course -> modelMapper.map(course, CourseDto.class))
+            .collect(Collectors.toList());
     }
 }

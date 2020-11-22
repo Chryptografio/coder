@@ -9,6 +9,8 @@ import ru.croc.coder.domain.Problem;
 import ru.croc.coder.dto.ProblemDto;
 import ru.croc.coder.service.ProblemService;
 
+import java.util.List;
+
 /**
  * todo Document type ProblemController
  */
@@ -33,5 +35,12 @@ public class ProblemController {
         Problem problem = problemService.publishProblem(username, courseId, problemDto);
 
         return modelMapper.map(problem, ProblemDto.class);
+    }
+
+    @GetMapping("/course/{courseId}")
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_STUDENT')")
+    public List<ProblemDto> getProblemsByCourse(Authentication authentication, @PathVariable Long courseId) {
+        String username = authentication.getName();
+        return problemService.getProblemsByCourse(username, courseId);
     }
 }

@@ -21,8 +21,8 @@ public class Course {
     @Column(nullable = false)
     private String name;
 
-//    @Column(nullable = false, columnDefinition = "default true")
-//    private Boolean opened;
+    @Enumerated(EnumType.STRING)
+    private Availability availability = Availability.CLOSED;
 
     @Lob
     private String description;
@@ -68,14 +68,14 @@ public class Course {
         return this;
     }
 
-//    public Boolean isOpened() {
-//        return opened;
-//    }
-//
-//    public Course setOpened(Boolean opened) {
-//        this.opened = opened;
-//        return this;
-//    }
+    public Availability getAvailability() {
+        return availability;
+    }
+
+    public Course setAvailability(Availability availability) {
+        this.availability = availability;
+        return this;
+    }
 
     public String getDescription() {
         return description;

@@ -108,6 +108,24 @@ public class User {
 		return this;
 	}
 
+	public Set<Course> getAttendedCourses() {
+		return attendedCourses;
+	}
+
+	public User setAttendedCourses(Set<Course> attendedCourses) {
+		this.attendedCourses = attendedCourses;
+		return this;
+	}
+
+	public Set<Course> getCreatedCourses() {
+		return createdCourses;
+	}
+
+	public User setCreatedCourses(Set<Course> createdCourses) {
+		this.createdCourses = createdCourses;
+		return this;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
